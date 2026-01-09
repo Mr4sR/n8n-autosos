@@ -1,14 +1,62 @@
 [
   {
-    "tanggal": "2026-01-09",
-    "judul": "Hari Pendidikan Nasional",
-    "tema": "inspiring, academic, futuristic",
-    "caption": "Selamat Hari Pendidikan Nasional..."
+    "holiday_name": "Tahun Baru Imlek 2577 Kongzili",
+    "holiday_symbol": "red lanterns, dragon, angpao envelopes, plum blossoms",
+    "holiday_acronym": "GONG XI FA CAI",
+    "date": "17 February 2026",
+    "tagline": "Prosperity and Good Fortune",
+    "mood": "festive, vibrant, red-themed, joyful",
+    "additional_elements": "gold coins, chinese knots, calligraphy",
+    "holiday_type": "cultural"
   },
   {
-    "tanggal": "2026-08-17",
-    "judul": "Hari Kemerdekaan RI",
-    "tema": "patriotic, red white",
-    "caption": "Dirgahayu Republik Indonesia..."
+    "holiday_name": "Hari Raya Nyepi Tahun Baru Saka 1948",
+    "holiday_symbol": "balinese gate, stars, offerings (canang sari), silence",
+    "holiday_acronym": "RAHAJENG NYEPI",
+    "date": "19 March 2026",
+    "tagline": "Peace in Silence and Harmony",
+    "mood": "quiet, spiritual, dark, serene",
+    "additional_elements": "ogoh-ogoh silhouette, incense smoke",
+    "holiday_type": "religious"
+  },
+  {
+    "holiday_name": "Eid al-Fitr 1447H",
+    "holiday_symbol": "ketupat, bedug, crescent moon, mosque dome",
+    "holiday_acronym": "EID MUBARAK",
+    "date": "20 March 2026",
+    "tagline": "Victory and Forgiveness",
+    "mood": "forgiving, warm, communal, green-themed",
+    "additional_elements": "islamic geometric patterns, glowing lights",
+    "holiday_type": "religious"
+  },
+  {
+    "holiday_name": "Hari Raya Waisak 2570 BE",
+    "holiday_symbol": "lotus flower, borobudur stupa, lanterns in sky, moon",
+    "holiday_acronym": "SABBE SATTA BHAVANTU SUKHITATTA",
+    "date": "31 May 2026",
+    "tagline": "Enlightenment and Peace for All Beings",
+    "mood": "peaceful, orange and gold themed, glowing",
+    "additional_elements": "water ripples, meditating silhouette",
+    "holiday_type": "religious"
+  },
+  {
+    "holiday_name": "Indonesia Independence Day (HUT RI ke-81)",
+    "holiday_symbol": "garuda pancasila, red and white flag, bambu runcing",
+    "holiday_acronym": "MERDEKA",
+    "date": "17 August 2026",
+    "tagline": "Pulih Lebih Cepat, Bangkit Lebih Kuat",
+    "mood": "patriotic, energetic, red and white, heroic",
+    "additional_elements": "panjat pinang silhouette, confetti",
+    "holiday_type": "national"
+  },
+  {
+    "holiday_name": "Christmas Day",
+    "holiday_symbol": "christmas tree, gifts, snowflakes, bells",
+    "holiday_acronym": "MERRY CHRISTMAS",
+    "date": "25 December 2026",
+    "tagline": "Joy to the World",
+    "mood": "magical, cozy, red and green, sparkly",
+    "additional_elements": "ribbons, star topper, candles",
+    "holiday_type": "religious"
   }
 ]
