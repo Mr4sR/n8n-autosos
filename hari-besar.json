@@ -30,6 +30,16 @@
     "holiday_type": "cultural"
   },
   {
+    "holiday_name": "Selamat Menunaikan Ibadah Puasa Ramadhan 1447 H",
+    "holiday_symbol": "crescent moon, mosque silhouette, lanterns, prayer beads",
+    "holiday_acronym": "MARHABAN YA RAMADHAN",
+    "date": "18 February 2026",
+    "tagline": "Bulan Penuh Berkah dan Ampunan",
+    "mood": "spiritual, peaceful, warm green and gold, serene",
+    "additional_elements": "dates, prayer mat, stars, quran",
+    "holiday_type": "religious"
+  },
+  {
     "holiday_name": "Hari Raya Nyepi (Tahun Baru Saka 1948)",
     "holiday_symbol": "balinese gate, offerings (canang sari), starry sky, silence",
     "holiday_acronym": "RAHAJENG NYEPI",
