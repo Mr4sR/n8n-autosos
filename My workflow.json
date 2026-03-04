@@ -1,0 +1,397 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "edit",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-3-pro-image-preview",
+          "mode": "list",
+          "cachedResultName": "models/gemini-3-pro-image-preview (Nano Banana Pro)"
+        },
+        "prompt": "={{ $json.prompt }}",
+        "images": {
+          "values": [
+            {}
+          ]
+        },
+        "options": {
+          "binaryPropertyOutput": "={{ $json }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        128
+      ],
+      "id": "612962f5-9243-4a0d-898b-3a33e2e388e2",
+      "name": "Edit an image",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "DHeObuDe1Ng2uOEb",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://res.cloudinary.com/dh55wzyhv/image/upload/v1767915151/HMMI_-_Ctrl_Knowledge_Square_Post_qdggib.png",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        544,
+        80
+      ],
+      "id": "4194a0a4-b444-482d-9c7e-9dbe74782757",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "url": "https://raw.githubusercontent.com/Mr4sR/n8n-autosos/refs/heads/main/hari-besar.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -400,
+        64
+      ],
+      "id": "641cb03b-b2a6-4644-995e-2f134a336369",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// =============================================\n// MULTI-STYLE POSTER PROMPT GENERATOR (v3)\n// SUPPORT: Futuristic, Cultural, Minimal, Modern, Playful\n// LOGO-SAFE EDITING MODE\n// =============================================\n\n// --- INPUT DATA ---\nconst input = $input.first().json;\n\nconst designData = {\n  holiday_name: input.holiday_name,\n  holiday_symbol: input.holiday_symbol,\n  holiday_acronym: input.holiday_acronym,\n  date: input.date,\n  tagline: input.tagline,\n  mood: input.mood || \"inspiring, engaging\",\n  additional_elements: input.additional_elements || \"decorative elements\",\n  design_style: input.design_style || \"random\", // <--- NEW\n\n  dimensions: {\n    width: 1080,\n    height: 1350\n  }\n};\n\nfunction getStylePreset(style) {\n  const presets = {\n    futuristic: `\nSTYLE:\n- Futuristic, cyber-tech, holographic\n- Dark background, neon glow\n- Geometric frames, light beams, 3D elements\n- High contrast, tech aesthetic\n`,\n\n    cultural: `\nSTYLE:\n- Cultural, Nusantara, heritage-inspired\n- Bright and warm colors, sky blue, earthy tones\n- Natural textures, batik or traditional motifs\n- Friendly, uplifting, national identity\n- Clean layout with photo or illustration elements\n`,\n\n    minimal: `\nSTYLE:\n- Minimalist, clean, modern\n- Soft gradients or solid colors\n- Few elements, strong typography\n- Plenty of whitespace\n`,\n\n    modern: `\nSTYLE:\n- Modern flat design\n- Bold color blocks\n- Simple shapes and icons\n- Balanced layout, social media friendly\n`,\n\n    playful: `\nSTYLE:\n- Youthful, fun, colorful\n- Rounded shapes, sticker-style elements\n- Bright color palette\n- Friendly and energetic mood\n`\n  };\n\n  if (style === \"random\") {\n    const keys = Object.keys(presets);\n    const randomKey = keys[Math.floor(Math.random() * keys.length)];\n    return presets[randomKey];\n  }\n\n  return presets[style] || presets.modern;\n}\n\nfunction generateDesignPrompt(data) {\n  const stylePreset = getStylePreset(data.design_style);\n\n  return `\nYou are editing an EXISTING design template. \nDO NOT create new logos. DO NOT modify the existing logo in any way.\n\nTASK:\nTransform the template into a social media poster for:\nEvent: ${data.holiday_name}\nTitle: ${data.holiday_acronym}\nSymbol/Theme: ${data.holiday_symbol}\nDate: ${data.date}\nTagline: \"${data.tagline}\"\nMood: ${data.mood}\n\n${stylePreset}\n\nCANVAS:\n- Size: ${data.dimensions.width}x${data.dimensions.height}px (4:5)\n- Format: PNG\n- Mobile-first layout\n\nCOMPOSITION GUIDELINES:\n- Create visual hierarchy: title → image/illustration → supporting text\n- Avoid repetitive layouts across designs\n- Use varied element placement (center, offset, layered, or collage)\n- Combine photography, illustration, or abstract shapes as appropriate to the style\n\nLOGO (CRITICAL):\n- Logo already exists in the template\n- Do NOT add, modify, recolor, resize, or move the logo\n- Only adjust background contrast if needed\n- If uncertain: leave logo exactly as is\n\nTYPOGRAPHY:\n- Headline: ${data.holiday_acronym}, bold and readable\n- Subtext: ${data.holiday_name}\n- Tagline: \"${data.tagline}\"\n- Date: ${data.date}\n\nFINAL OUTPUT:\n- One final poster\n- No watermark, no borders\n- Preserve all existing branding elements\n`;\n}\n\nconst finalPrompt = generateDesignPrompt(designData);\n\nreturn {\n  prompt: finalPrompt,\n  metadata: {\n    holiday_name: designData.holiday_name,\n    style: designData.design_style,\n    dimensions: `${designData.dimensions.width}x${designData.dimensions.height}`,\n    anti_hallucination: true,\n    timestamp: new Date().toISOString()\n  },\n  preview_text: finalPrompt.substring(0, 500) + \"...\"\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        304,
+        48
+      ],
+      "id": "d5b0037c-276e-49e3-9add-89295889d96d",
+      "name": "Convert JSON to Prompt"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $json.data; // string JSON dari GitHub\nconst parsed = JSON.parse(raw); // ubah ke object asli\n\nreturn parsed.map(item => ({\n  json: item\n}));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        64
+      ],
+      "id": "b4de38ed-8e98-45d7-9c15-8a0225f89d32",
+      "name": "Fetch JSON"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ambil tanggal hari ini (WIB)\nconst now = new Date();\nconst wib = new Date(now.getTime() + 7 * 60 * 60 * 1000);\nconst today = wib.toISOString().slice(0, 10); // \"2026-01-01\"\nconst items = $input.all()\n\n// Fungsi konversi \"01 January 2026\" → \"2026-01-01\"\nfunction parseDateString(dateStr) {\n  const d = new Date(dateStr);\n  if (isNaN(d)) return null;\n  return d.toISOString().slice(0, 10);\n}\n\n// Filter hanya event hari ini\nconst filtered = items.filter(item => {\n  const eventDate = parseDateString(item.json.date);\n  return eventDate === today;\n});\n\nreturn filtered;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -48,
+        64
+      ],
+      "id": "13556aa1-85a4-4bee-aea4-c0a8727ee9e1",
+      "name": "Filter JSON"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "node": "17841463105098962",
+        "imageUrl": "={{ $json.url }}",
+        "caption": "={{ $json.content.parts[0].text }}"
+      },
+      "type": "@mookielianhd/n8n-nodes-instagram.instagram",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        64
+      ],
+      "id": "d898cde3-d1a8-47e2-a541-28e96c7520c2",
+      "name": "Publish",
+      "credentials": {
+        "instagramApi": {
+          "id": "3NbAhhQrvDuzMpGB",
+          "name": "Instagram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "=models/gemini-2.5-flash",
+          "mode": "id"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a professional social media copywriter.\n\nCreate an Instagram caption for the official social media account of:\nHimpunan Mahasiswa Politeknik Piksi Input Serang (HMMI)\nfrom Kampus Politeknik Piksi Input Serang.\n\nCampaign data:\nEvent Name: {{ $json.metadata.holiday_name }}\nAcronym / Title: {{ $json.holiday_acronym }}\n\nRequirements:\n- Language: Indonesian\n- Style: modern, engaging, tech-savvy\n- Tone: youthful, academic, organizational branding (student organization)\n- Include:\n  1) A strong hook in the first line\n  2) Clear call-to-action (CTA)\n  3) Relevant hashtags (5–10)\n- Keep it under 150 words\n- Suitable for Instagram feed\n- Do NOT mention any AI, automation, or system\n- Do NOT mention internal workflow or prompt variables\n\nOutput only the caption text, no explanation."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        -16
+      ],
+      "id": "a0ee755a-0310-4917-b18c-2c3083e0009b",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "RHRChgl5g9OfDecQ",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "uploadFile",
+        "additionalFieldsFile": {}
+      },
+      "type": "n8n-nodes-cloudinary.cloudinary",
+      "typeVersion": 1,
+      "position": [
+        880,
+        128
+      ],
+      "id": "73c3c344-74e9-49d2-a5b7-176291b7888c",
+      "name": "Upload an asset from file data",
+      "credentials": {
+        "cloudinaryApi": {
+          "id": "cdMrjALwHNky5IKw",
+          "name": "Cloudinary account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1104,
+        64
+      ],
+      "id": "b6daff7d-43a4-499d-8eed-93d7dd1031cd",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 1
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -576,
+        64
+      ],
+      "id": "1be055ea-17ee-4592-9936-63254f874c8d",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "50204075-8786-4309-93a9-737fa1ded560",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        128,
+        64
+      ],
+      "id": "9cf2722f-57a0-481d-915e-94bcafac7ef7",
+      "name": "If"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit an image",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Fetch JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit an image": {
+      "main": [
+        [
+          {
+            "node": "Upload an asset from file data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert JSON to Prompt": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch JSON": {
+      "main": [
+        [
+          {
+            "node": "Filter JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter JSON": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish": {
+      "main": [
+        []
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload an asset from file data": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Publish",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Convert JSON to Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "d40a3fb3-a0f6-4933-bcdd-c4eb76256c55",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "76cf32c32ab83232801b70eee7108598bc2c65aa2b89e4194679d92bf50af551"
+  },
+  "id": "AWP9Ataub0mEFrPaByp-e",
+  "tags": []
+}
