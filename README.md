@@ -58,7 +58,7 @@ Publish to Instagram
 
 Below is the visual workflow inside **n8n**.
 
-![n8n workflow](images/workflow.jpeg)
+![n8n workflow](workflow.jpeg)
 
 ---
 
@@ -66,7 +66,7 @@ Below is the visual workflow inside **n8n**.
 
 Example poster generated automatically by the workflow:
 
-![example output](images/output-example.png)
+![example output](output-example.png)
 
 ---
 
